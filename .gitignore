@@ -1,24 +1,19 @@
-# Fichiers et dossiers spécifiques à Django
-############################################
+
 *.log
 *.pot
 *.pyc
 __pycache__/
-local_settings.py  # Si vous en utilisez un
-sante.sqlite3         # Votre base de données locale
-/staticfiles_root  # Dossier de collection des statiques en prod
-/media             # Fichiers media téléchargés
+local_settings.py  
+sante.sqlite3         
+staticfiles_root/ 
 
-# Dossiers d'environnement Python
-############################################
-/venv              # Environnement virtuel (ou venv)
+
+/venv              
 /env
 
-# Fichiers macOS / Windows
-############################################
+
 .DS_Store
 Thumbs.db
 
-# 🚨 AJOUT CRUCIAL : VOTRE APPLICATION PYQT6 🚨
-############################################
-soignant_app/      # Remplacez par le nom exact de votre dossier client PyQt
+
+soignant_app/      
