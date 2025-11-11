@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
-from decouple import config
 from pathlib import Path
 import dj_database_url
 
@@ -28,9 +27,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = config('DEBUG',default=True,cast=bool)
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', *config('ALLOWED_HOSTS', default='').split(',')]
-SECRET_KEY = config('SECRET_KEY')
+DEBUG = os.environ.get('DEBUG','False')=='True'
+
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME') # Render fournit cette variable
+
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
+SECRET_KEY=os.environ.get('SECRET_KEY')
 
 
 # Application definition
@@ -84,8 +89,9 @@ WSGI_APPLICATION = 'centre.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+DATABASE_URL = os.environ.get('DATABASE_URL', default=None)
 
-if DATABASE_URL := config('DATABASE_URL', default=None):
+if DATABASE_URL :
     DATABASES = {
         'default': dj_database_url.config(
             default=DATABASE_URL,
