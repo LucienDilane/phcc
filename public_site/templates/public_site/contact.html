@@ -1,0 +1,135 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Contactez-nous -PHCC{% endblock %}
+
+{% block content %}
+
+    <section class="py-5 bg-white border-bottom">
+        <div class="container py-5">
+            <div class="row">
+                <div class="col-lg-10 mx-auto text-center">
+                    <h1 class="display-5 fw-bolder text-dark mb-3">
+                        Nous Sommes à Votre Écoute
+                    </h1>
+                    <p class="fs-5 text-secondary mb-0">
+                        Que ce soit pour une démonstration, un support technique, ou une simple question, notre équipe vous répond rapidement.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-6 bg-light">
+        <div class="container">
+            <h2 class="h3 fw-bold mb-5 text-center text-dark">
+                Contactez-nous Directement
+            </h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4 text-center">
+                
+                <div class="col">
+                    <div class="card p-4 h-100 border-0 card-hover-shadow">
+                        <div class="text-success display-5 mb-3">📞</div>
+                        <h3 class="h5 fw-bold">Support Général</h3>
+                        <p class="text-muted mb-3">Questions commerciales et administratives.</p>
+                        <a href="tel:+237675823077" class="btn btn-outline-success fw-bold mt-auto">
+                            Appeler le 675 82 30 77
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card p-4 h-100 border-0 card-hover-shadow">
+                        <div class="text-success display-5 mb-3">💬</div>
+                        <h3 class="h5 fw-bold">Chat WhatsApp</h3>
+                        <p class="text-muted mb-3">Contact rapide pour les questions mobiles ou le support léger.</p>
+                        <a href="https://wa.me/237672806121" class="btn btn-success fw-bold text-white mt-auto">
+                            Envoyer un Message
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <div class="card p-4 h-100 border-0 card-hover-shadow">
+                        <div class="text-success display-5 mb-3">👥</div>
+                        <h3 class="h5 fw-bold">Partenariats & Cliniciens</h3>
+                        <p class="text-muted mb-3">Démonstrations de produits et collaborations médicales.</p>
+                        <a href="tel:+237672736850" class="btn btn-outline-success fw-bold mt-auto">
+                            Appeler le 672 73 68 50
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-6 bg-white border-top">
+        <div class="container">
+            <h2 class="h3 fw-bold mb-4 text-center text-dark">
+                Retrouvez-nous à Yaoundé (Nkozoa, Entrée champ de tire)
+            </h2>
+            <div class="rounded-3 overflow-hidden shadow-lg border border-3 border-success-subtle">
+
+               <iframe 
+
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3980.2518763754642!2d11.535634074349725!3d3.9684704475713577!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x108bc71d485635ad%3A0xdaa1a5b4cd971562!2sPEOPLE&#39;S%20HEALTH%20CARE%20CENTER!5e0!3m2!1sfr!2scm!4v1762672324263!5m2!1sfr!2scm" 
+                    width="1200" 
+                    height="450" style="border:0;" 
+                    allowfullscreen="" loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+
+                </iframe>
+
+            </div>
+
+                
+            <div class="text-center mt-3">
+                <p class="text-muted small mb-0">
+                    Nous sommes situés dans le quartier Nkozoa, à Yaoundé. Veuillez nous contacter pour planifier votre visite.
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="py-6 bg-light border-top">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card p-5 shadow-lg border-0">
+                        <h2 class="h3 fw-bold mb-4 text-center text-dark border-bottom border-success pb-2">
+                            Envoyez-nous un Email
+                        </h2>
+                        
+                        <form action="{% url 'contact' %}" method="post">
+                            {% csrf_token %}
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label for="inputNom" class="form-label">Nom Complet *</label>
+                                    <input type="text" class="form-control" id="inputNom" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="inputEmail" class="form-label">Adresse Email *</label>
+                                    <input type="email" class="form-control" id="inputEmail" required>
+                                </div>
+                                <div class="col-12">
+                                    <label for="inputObjet" class="form-label">Objet</label>
+                                    <input type="text" class="form-control" id="inputObjet">
+                                </div>
+                                <div class="col-12">
+                                    <label for="inputMessage" class="form-label">Votre Message *</label>
+                                    <textarea class="form-control" id="inputMessage" rows="5" required></textarea>
+                                </div>
+                                <div class="col-12 text-center mt-4">
+                                    <button type="submit" class="btn btn-primary btn-lg px-5 shadow-sm fw-bold">
+                                        Envoyer le Message
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

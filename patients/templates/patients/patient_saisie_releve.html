@@ -1,0 +1,91 @@
+{% extends "patients/patient_dashboard.html" %}
+{% load static %}
+
+{% block dashboard_title %}Saisie de Relevé{% endblock %}
+{% block main_title %}Saisir mes Paramètres Vitaux{% endblock %}
+
+{% block dashboard_content %}
+    
+    <div class="row">
+        <div class="col-lg-8 mx-auto">
+            
+            <div class="card shadow-sm border-0 p-4 mb-4">
+                <div class="card-body">
+                    <h5 class="card-title fw-bold text-success mb-3">
+                        Relevé du Jour <i class="bi bi-input-cursor me-2"></i>
+                    </h5>
+                    
+                    <p class="text-secondary small mb-4">
+                        Veuillez entrer les mesures prises avec vos appareils de télésurveillance.
+                        Ces données sont transmises immédiatement à votre équipe soignante pour une analyse proactive.
+                    </p>
+
+                    <form method="post" action="{% url 'patient_submit_releve' %}">
+                        {% csrf_token %}
+                        
+                        {% if messages %}
+                            {% for message in messages %}
+                                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+
+                        <div class="row g-3 mb-4 border p-3 rounded-3">
+                            <h6 class="fw-bold text-dark">Tension Artérielle (mmHg)</h6>
+                            
+                            <div class="col-md-6">
+                                <label for="systolique" class="form-label small">Systolique</label>
+                                <input type="number" step="1" min="60" max="200" class="form-control" id="systolique" name="tension_systolique" required>
+                                <div class="form-text">Valeur la plus élevée (pression maximale).</div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="diastolique" class="form-label small">Diastolique</label>
+                                <input type="number" step="1" min="40" max="120" class="form-control" id="diastolique" name="tension_diastolique" required>
+                                <div class="form-text">Valeur la plus basse (pression minimale).</div>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-4 border p-3 rounded-3">
+                            <h6 class="fw-bold text-dark">Autres Mesures</h6>
+                            
+                            <div class="col-md-6">
+                                <label for="glycemie" class="form-label small">Glycémie (g/L)</label>
+                                <input type="number" step="0.01" min="0.5" max="5.0" class="form-control" id="glycemie" name="glycemie" required>
+                                <div class="form-text">Exemple : 1.10 g/L.</div>
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <label for="poids" class="form-label small">Poids (kg)</label>
+                                <input type="number" step="0.1" min="30" max="300" class="form-control" id="poids" name="poids">
+                                <div class="form-text">Poids actuel (facultatif).</div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="notes" class="form-label fw-bold text-dark">Notes / Symptômes (Optionnel)</label>
+                            <textarea class="form-control" id="notes" name="notes_patient" rows="3" placeholder="Ex: Je ressens une légère fatigue depuis ce matin."></textarea>
+                        </div>
+                        
+                        <hr>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-success btn-lg fw-bold shadow">
+                                <i class="bi bi-save me-2"></i> Enregistrer mon Relevé
+                            </button>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                 <a href="{% url 'patient_dashboard' %}" class="btn btn-link text-secondary text-decoration-none">
+                    <i class="bi bi-arrow-left"></i> Retour à l'Aperçu
+                </a>
+            </div>
+        </div>
+    </div>
+{% endblock dashboard_content %}

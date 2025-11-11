@@ -1,0 +1,101 @@
+/*
+======================================================
+FICHIER: custom.css
+Palette: Vert Vif (#73fd73) & Blanc
+======================================================
+*/
+
+/*
+--------------------------------
+1. VARIABLES ET COULEURS
+--------------------------------
+*/
+:root {
+    /* Couleur Primaire (Très Clair) - Vert vif demandé */
+    --bs-primary: #73fd73; 
+    --bs-primary-rgb: 115, 253, 115;
+    
+    /* Couleur de Contraste (Vert plus foncé) - Pour le texte et les boutons principaux */
+    --bs-dark-green: #198754; 
+    --bs-dark-green-rgb: 25, 135, 84; 
+    
+    /* On surcharge la couleur 'success' de Bootstrap pour utiliser le vert foncé pour le contraste */
+    --bs-success: var(--bs-dark-green);
+    --bs-success-rgb: var(--bs-dark-green-rgb);
+
+    --color-section-bg: #f8f9fa;
+}
+
+/*
+--------------------------------
+2. SECTION HERO (DÉGRADÉ TRIANGULAIRE)
+--------------------------------
+*/
+.hero-gradient {
+    /* Dégradé diagonal à 135 degrés : 
+       Le blanc (en haut à gauche) prend 50% de la surface.
+       Le vert clair (en bas à droite) prend 50% de la surface. */
+    background: linear-gradient(135deg, white 50%, var(--bs-primary) 50%) !important;
+    /* Assure une hauteur minimale pour que l'effet diagonal soit visible */
+    min-height: 500px; 
+}
+
+
+/*
+--------------------------------
+3. NAVBAR (NAVBAR-HIDDEN & LIEN ACTIF)
+--------------------------------
+*/
+/* Style par défaut de la navbar */
+#main-navbar {
+    transition: transform 0.3s ease-in-out;
+    background-color: white !important; /* Fond blanc */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Classe utilisée pour cacher la navbar (hors écran) */
+.navbar-hidden {
+    transform: translateY(-100%) !important;
+}
+
+/* FORÇAGE DU FOND VERT CLAIR POUR LE LIEN ACTIF et HOVER */
+/* Utilisation de l'ID #main-navbar pour augmenter la priorité du sélecteur */
+#main-navbar .nav-link.active,
+#main-navbar .nav-link:hover,
+#main-navbar .nav-link.forced-active-bg {
+    /* Fond vert clair */
+    background-color: var(--bs-primary) !important; 
+    /* Texte vert foncé pour la lisibilité sur le fond clair */
+    color: var(--bs-dark-green) !important; 
+    border-radius: 5px;
+}
+
+/* Le texte de la marque (Mains d'Anges) doit être vert foncé pour le contraste */
+.navbar-brand .text-success {
+    color: var(--bs-dark-green) !important;
+}
+
+
+/*
+--------------------------------
+4. BOUTONS & ÉLÉMENTS DIVERS
+--------------------------------
+*/
+
+/* Le bouton principal utilise le vert foncé pour le contraste */
+.btn-primary {
+    background-color: var(--bs-dark-green) !important;
+    border-color: var(--bs-dark-green) !important;
+    color: white !important;
+}
+
+/* Effet au survol pour les Cartes */
+.card-hover-shadow {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+}
+
+.card-hover-shadow:hover {
+    box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1) !important;
+    transform: translateY(-5px);
+}

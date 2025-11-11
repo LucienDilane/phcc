@@ -1,0 +1,219 @@
+{% extends "patients/patient_dashboard.html" %}
+{% load static %}
+
+{% block dashboard_title %}Aperçu Général{% endblock %}
+{% block main_title %}Aperçu Général{% endblock %}
+
+{% block dashboard_content %}
+
+    <div class="row g-4 mb-5">
+        
+        <div class="col-lg-4 col-md-6">
+            <div class="card h-100 shadow-sm border-start border-5 border-primary p-3 hover-lift">
+                <div class="card-body">
+                    <h5 class="card-title text-uppercase small text-muted">Dernier Suivi Clinique</h5>
+                    
+                    {% if dernier_suivi %}
+                        <p class="h3 fw-bold text-success mb-0">{{ dernier_suivi.motif }}</p>
+                        <span class="small text-success">Le {{ dernier_suivi.date_suivi|date:"d F Y \à H:i" }}</span>
+                    {% else %}
+                        <p class="h3 fw-bold text-success mb-0">Début du suivi</p>
+                        <span class="small text-secondary">Aucun suivi enregistré pour le moment.</span>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-4 col-md-6">
+            <div class="card h-100 shadow-sm border-start border-5 border-success p-3 hover-lift">
+                <div class="card-body">
+                    <h5 class="card-title text-uppercase small text-muted">Prochain Rendez-vous</h5>
+                    
+                    {% if prochain_rdv %}
+                        <p class="h3 fw-bold text-dark mb-0">
+                            {{ prochain_rdv.date_heure|date:"d F \à H:i" }}
+                        </p>
+                        <span class="small text-secondary">{{ prochain_rdv.motif }}</span>
+                    {% else %}
+                        <p class="h3 fw-bold text-dark mb-0">Aucun planifié</p>
+                        <a href="{% url 'patient_demande_rdv' %}" class="small text-primary text-decoration-none">Prendre un RDV</a>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-12">
+            <div class="card h-100 shadow-sm border-start border-5 border-warning p-3 hover-lift">
+                <div class="card-body">
+                    <h5 class="card-title text-uppercase small text-muted">Dernier Relevé (Télésurv.)</h5>
+                    
+                    {% if dernier_releve %}
+                        <p class="h4 fw-bold text-dark mb-1">
+                            TA: {{ dernier_releve.tension_systolique|default:"N/D" }}/{{ dernier_releve.tension_diastolique|default:"N/D" }} mmHg
+                        </p>
+                        <p class="h6 fw-bold text-dark mb-0">
+                            Glycémie: {{ dernier_releve.glycemie|default:"N/D" }} g/L
+                        </p>
+                        <span class="small text-secondary">Transmis le {{ dernier_releve.date_releve|date:"d/m \à H:i" }}</span>
+                    {% else %}
+                        <p class="h3 fw-bold text-dark mb-0">Aucun relevé récent</p>
+                        <a href="{% url 'patient_saisie_releve' %}" class="small text-primary text-decoration-none">Saisir maintenant</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        
+        <div class="col-lg-8">
+            <div class="card shadow-sm border-0 mb-4 p-4">
+                <h3 class="h4 fw-bold mb-3 border-bottom pb-2 text-success">Tendances des Paramètres Vitaux</h3>
+                <p class="text-secondary">
+                    Visualisation des 15 derniers relevés de tension et glycémie.
+                </p>
+                
+                <div class="my-3">
+                    <canvas id="vitalsChart"></canvas>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card shadow-sm border-0 p-4 mb-4">
+                <h3 class="h4 fw-bold mb-3 border-bottom pb-2 text-success">Derniers Suivis</h3>
+                
+                {% if derniers_suivis %}
+                    <ul class="list-group list-group-flush mb-3">
+                        {% for suivi in derniers_suivis %}
+                            <li class="list-group-item d-flex justify-content-between align-items-center small text-dark px-0">
+                                <span class="fw-bold text-dark me-3">
+                                    {{ suivi.date_suivi|date:"d/m" }}
+                                </span>
+                                <span class="flex-grow-1 text-truncate">{{ suivi.motif }}</span>
+                                <a href="#" class="btn btn-sm btn-outline-success ms-3 py-0 px-2">
+                                    Voir
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                    <a href="#" class="btn btn-link text-success text-decoration-none">Tout voir</a>
+                {% else %}
+                    <div class="alert alert-info small">
+                        Aucun historique récent.
+                    </div>
+                {% endif %}
+            </div>
+            
+            <div class="card shadow-sm border-0 p-4">
+                <h3 class="h4 fw-bold mb-3 border-bottom pb-2 text-success">Mon Équipe Soignante</h3>
+                <p class="mb-1 small text-dark">
+                    <strong>Médecin</strong>: <br>
+                    <strong>Spécialité </strong>: Médecin Généraliste<br>
+                </p>
+                <p class="mb-0 small text-dark">
+                    <strong>Contact Urgence (PHC)</strong> : <span class="fw-bold text-danger"><a href="tel:+237697038466">697 03 84 66</a></span>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock dashboard_content %}
+
+{% block extra_js %}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    {{ block.super }}
+    
+    <script>
+        // Récupération des données sérialisées (aucune modification ici)
+        const labels = {{ chart_data_labels_json|safe }};
+        const tension_s_data = {{ chart_data_tension_s_json|safe }};
+        const tension_d_data = {{ chart_data_tension_d_json|safe }};
+        const glycemie_data = {{ chart_data_glycemie_json|safe }};
+
+        const ctx = document.getElementById('vitalsChart');
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+                    // TENSION SYSTOLIQUE
+                    {
+                        label: 'Tension Systolique (mmHg)',
+                        data: tension_s_data,
+                        borderColor: 'rgb(255, 99, 132)',
+                        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+                        yAxisID: 'yTension',
+                        tension: 0.4,  // <-- NOUVEAU/MODIFIÉ : Active le lissage
+                        fill: false
+                    },
+                    // TENSION DIASTOLIQUE
+                    {
+                        label: 'Tension Diastolique (mmHg)',
+                        data: tension_d_data,
+                        borderColor: 'rgb(54, 162, 235)',
+                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                        yAxisID: 'yTension',
+                        tension: 0.4,  // <-- NOUVEAU/MODIFIÉ : Active le lissage
+                        fill: false
+                    },
+                    // GLYCÉMIE
+                    {
+                        label: 'Glycémie (g/L)',
+                        data: glycemie_data,
+                        borderColor: 'rgb(75, 192, 192)',
+                        backgroundColor: 'rgba(75, 192, 192, 0.5)',
+                        yAxisID: 'yGlycemie',
+                        tension: 0.4,  // <-- NOUVEAU/MODIFIÉ : Active le lissage
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                // ... (Configuration des axes inchangée) ...
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date et Heure du Relevé'
+                        }
+                    },
+                    yTension: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                        title: {
+                            display: true,
+                            text: 'Tension Artérielle (mmHg)'
+                        },
+                        grid: {
+                            drawOnChartArea: true, 
+                        }
+                    },
+                    yGlycemie: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+                        title: {
+                            display: true,
+                            text: 'Glycémie (g/L)'
+                        },
+                        grid: {
+                            drawOnChartArea: false, 
+                        },
+                        min: 0.5, 
+                        max: 3.0
+                    }
+                }
+            }
+        });
+    </script
+{% endblock %}

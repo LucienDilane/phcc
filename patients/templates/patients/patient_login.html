@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Connexion Patient | Peoples Health Centre{% endblock %}
+
+{% block content %}
+    <div class="container py-5 d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+        <div class="card shadow-lg border-0" style="max-width: 450px; width: 100%;">
+            <div class="card-header bg-success text-white text-center py-4 rounded-top-3">
+                <h2 class="h3 mb-0 fw-bold">Espace Patient Sécurisé</h2>
+            </div>
+            <div class="card-body p-4 p-md-5">
+                {% if error_message %}
+                    <div class="alert alert-danger" role="alert">{{ error_message }}</div>
+                {% endif %}
+                
+                <p class="text-secondary text-center mb-4">
+                    Veuillez entrer vos identifiants fournis par le Peoples Health Centre.
+                </p>
+
+                <form method="post" action="{% url 'patient_login' %}">
+                    {% csrf_token %}
+                    
+                    <div class="mb-3">
+                        <label for="id_username" class="form-label small fw-bold text-dark">Nom d'Utilisateur ou Email</label>
+                        <input type="text" 
+                               class="form-control" 
+                               id="id_username" 
+                               name="username" 
+                               required 
+                               placeholder="Ex: alain.dupont@phc.com">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="id_password" class="form-label small fw-bold text-dark">Mot de Passe</label>
+                        <input type="password" 
+                               class="form-control" 
+                               id="id_password" 
+                               name="password" 
+                               required 
+                               placeholder="Entrez votre mot de passe">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 py-2 fw-bold hover-lift">
+                        Se Connecter
+                    </button>
+                </form>
+
+                <div class="text-center mt-4">
+                    Mot de passe oublié ?
+                    <a href="tel:+237672806121">Contactez le support technique</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

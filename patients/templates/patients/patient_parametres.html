@@ -1,0 +1,113 @@
+{% extends "patients/patient_dashboard.html" %}
+{% load static %}
+
+{% block dashboard_title %}Paramètres du Profil{% endblock %}
+{% block main_title %}Gestion de mon Profil et Mes Objectifs{% endblock %}
+
+{% block dashboard_content %}
+    
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            
+            <ul class="nav nav-tabs nav-fill mb-4" id="parametresTabs" role="tablist">
+                </ul>
+
+            <div class="tab-content" id="parametresTabsContent">
+                
+                <div class="tab-pane fade show active" id="personnel" role="tabpanel" aria-labelledby="personnel-tab">
+                    <div class="card shadow-sm border-0 p-4">
+                        <div class="card-body">
+                            
+                            <form method="post" action="{% url 'patient_update_parametres' %}">
+                                {% csrf_token %}
+                                
+                                {% if messages %}{% for message in messages %}
+                                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                        {{ message }}
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                {% endfor %}{% endif %}
+                                
+                                
+                                <h5 class="card-title fw-bold text-primary mb-3">Détails du Compte</h5>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-4 col-form-label fw-bold">Nom d'Utilisateur :</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control bg-light" value="{{ current_patient.username }}" disabled>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-4 col-form-label fw-bold">Nom et Prénom :</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control bg-light" value="{{ current_patient.get_full_name }}" disabled>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label for="email" class="col-sm-4 col-form-label fw-bold">Email :</label>
+                                    <div class="col-sm-8">
+                                        <input type="email" class="form-control" id="email" name="email" value="{{ current_patient.email|default:'' }}">
+                                        <div class="form-text">L'email est utilisé pour les notifications importantes.</div>
+                                    </div>
+                                </div>
+                                <div class="mb-3 row">
+                                    <label class="col-sm-4 col-form-label fw-bold">Dernière Connexion :</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control bg-light" value="{{ current_patient.last_login|date:'d F Y à H:i'|default:'Jamais connecté' }}" disabled>
+                                    </div>
+                                </div>
+                                
+                                <hr class="my-4">
+                                
+                                <h5 class="card-title fw-bold text-success mb-3">Personne à Contacter en Cas d'Urgence</h5>
+                                
+                                <div class="mb-3 row">
+                                    <label for="contact_urgence_nom" class="col-sm-4 col-form-label fw-bold">Nom Complet :</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="contact_urgence_nom" name="contact_urgence_nom" 
+                                               value="{{ current_patient.contact_urgence_nom|default:'' }}" placeholder="Nom de la personne">
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3 row">
+                                    <label for="contact_urgence_telephone" class="col-sm-4 col-form-label fw-bold">Téléphone :</label>
+                                    <div class="col-sm-8">
+                                        <input type="tel" class="form-control" id="contact_urgence_telephone" name="contact_urgence_telephone" 
+                                               value="{{ current_patient.contact_urgence_telephone|default:'' }}" placeholder="Numéro de téléphone">
+                                    </div>
+                                </div>
+                                
+                                <div class="mb-3 row">
+                                    <label for="contact_urgence_lien" class="col-sm-4 col-form-label fw-bold">Lien de Parenté :</label>
+                                    <div class="col-sm-8">
+                                        <select class="form-select" id="contact_urgence_lien" name="contact_urgence_lien">
+                                            <option value=""><b>Choisir le lien de parenté</b></option>
+                                            {% for key, value in relation_choix %}
+                                                <option value="{{ key }}" {% if current_patient.contact_urgence_lien == key %}selected{% endif %}>
+                                                    {{ value }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4 text-end">
+                                    <button type="submit" class="btn btn-success btn-lg fw-bold shadow">
+                                        <i class="bi bi-floppy-fill me-2"></i> Enregistrer les Modifications
+                                    </button>
+                                </div>
+                                
+                            </form>
+                            
+                            <hr class="my-4">
+                            
+                            <div class="alert alert-info small">
+                                Pour des raisons de sécurité, le mot de passe du compte est géré par votre équipe soignante.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                </div>
+        </div>
+    </div>
+{% endblock dashboard_content %}

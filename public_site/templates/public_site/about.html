@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Notre Mission et Services | Peoples Health Centre{% endblock %}
+
+{% block content %}
+
+    <section class="py-5 bg-white border-bottom border-5 border-primary">
+        <div class="container py-5">
+            <div class="row g-5 align-items-center">
+                
+                <div class="col-lg-6 text-center text-lg-start">
+                    <h1 class="display-5 fw-bolder text-dark mb-3">
+                        Révolutionner le Suivi, Maintenir le Lien Humain.
+                    </h1>
+                    <p class="fs-6 text-secondary mb-4">
+                        Le **Peoples Health Centre** est né de la conviction que la technologie peut et doit rendre les soins de santé plus humains, accessibles et efficaces. Nous bâtissons un avenir où la qualité des soins ne dépend plus de la distance.
+                    </p>
+                    <a href="{% url 'contact' %}" class="btn btn-primary btn-lg mt-3 shadow-sm hover-lift">
+                        Contacter notre Équipe
+                    </a>
+                </div>
+
+                <div class="col-lg-6">
+                    <h2 class="h3 fw-bold mb-4 text-success border-bottom pb-2">
+                        Nos Services Essentiels
+                    </h2>
+                    <ul class="list-unstyled">
+                        <li class="d-flex align-items-start mb-3">
+                            <i class="bi bi-heart-fill me-3 mt-1" style="color: var(--bs-primary); font-size: 1.5rem;"></i>
+                            <div>
+                                <strong class="text-dark">Soins de Santé Primaire :</strong> Consultations générales, médecine préventive et bilans de santé annuels.
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-start mb-3">
+                            <i class="bi bi-activity me-3 mt-1" style="color: var(--bs-primary); font-size: 1.5rem;"></i>
+                            <div>
+                                <strong class="text-dark">Télésurveillance des Maladies Chroniques :</strong> Suivi à distance via notre plateforme numérique.
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-start mb-3">
+                            <i class="bi bi-thermometer-half me-3 mt-1" style="color: var(--bs-primary); font-size: 1.5rem;"></i>
+                            <div>
+                                <strong class="text-dark">Dépistage et Vaccination :</strong> Programmes complets de vaccination et tests de dépistage rapides.
+                            </div>
+                        </li>
+                        <li class="d-flex align-items-start mb-3">
+                            <i class="bi bi-bandaid me-3 mt-1" style="color: var(--bs-primary); font-size: 1.5rem;"></i>
+                            <div>
+                                <strong class="text-dark">Soutien Psychologique :</strong> Accès à des consultations en ligne ou en personne pour la santé mentale.
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section class="py-6 bg-light">
+        <div class="container py-5">
+            <div class="row g-5 align-items-center">
+                
+                <div class="col-lg-6 order-lg-1">
+                    <div class="p-5 bg-white rounded-4 shadow-lg border border-5 border-success-subtle text-center hover-lift">
+                        <i class="bi bi-person-check-fill text-success display-1"></i> 
+                        <p class="mt-3 text-muted mb-0 small">Un lien constant et sécurisé</p>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 order-lg-2">
+                    <h2 class="h2 fw-bold mb-4 text-success">Notre Mission</h2>
+                    <p class="lead text-dark mb-4">
+                        Nous connectons les **patients** atteints de maladies chroniques et les **professionnels de santé** via une plateforme de télésurveillance simple, sécurisée et intelligente.
+                    </p>
+                    <p class="text-secondary">
+                        L'objectif est double : offrir aux patients la sérénité d'un suivi constant à domicile et donner aux cliniciens les outils précis pour une intervention rapide et personnalisée. Nous transformons les données en décisions.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="py-6 bg-white border-top">
+        <div class="container py-5">
+            <h2 class="h2 text-center fw-bold mb-5 text-dark">Nos Valeurs Fondamentales</h2>
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                
+                <div class="col">
+                    <div class="card p-4 h-100 border-0 card-hover-shadow text-center">
+                        <div class="text-success display-5 mb-3">🔒</div>
+                        <h3 class="h5 fw-bold">Sécurité & Confiance</h3>
+                        <p class="text-secondary small">La confidentialité et la sécurité des données de santé (RGPD/HDS) sont le cœur de notre architecture et de nos engagements.</p>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="card p-4 h-100 border-0 card-hover-shadow text-center">
+                        <div class="text-success display-5 mb-3">🤝</div>
+                        <h3 class="h5 fw-bold">Approche Humaine</h3>
+                        <p class="text-secondary small">La technologie est un support, jamais un substitut, à la relation de confiance entre le patient et son soignant dédié.</p>
+                    </div>
+                </div>
+                
+                <div class="col">
+                    <div class="card p-4 h-100 border-0 card-hover-shadow text-center">
+                        <div class="text-success display-5 mb-3">💡</div>
+                        <h3 class="h5 fw-bold">Innovation Constante</h3>
+                        <p class="text-secondary small">Nous développons continuellement des outils pour simplifier les protocoles et améliorer la qualité de vie de tous nos utilisateurs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-6 bg-light border-top">
+        <div class="container py-5">
+            <div class="row align-items-center g-5">
+                
+                <div class="col-lg-6 order-lg-1">
+                    <h2 class="h2 fw-bold mb-4 text-dark">
+                        Notre Vision : Soigner Partout, à Tout Moment.
+                    </h2>
+                    <p class="lead text-secondary mb-4">
+                        Nous croyons que la qualité des soins ne devrait pas dépendre de la localisation. Notre plateforme assure un suivi rigoureux du patient, **qu'il soit à domicile, en voyage ou en déplacement.**
+                    </p>
+                    <ul class="list-unstyled text-secondary">
+                        <li class="mb-2"><span class="text-success fw-bold me-2">🌍</span> **Ubiquité des Soins :** Accès aux données critiques 24h/24, 7j/7.</li>
+                        <li class="mb-2"><span class="text-success fw-bold me-2">📍</span> **Géolocalisation du Soin :** Les plans de suivi s'adaptent aux contextes locaux.</li>
+                        <li class="mb-2"><span class="text-success fw-bold me-2">📱</span> **Mobilité Totale :** Une expérience fluide sur tous les appareils (mobile, desktop).</li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-6 order-lg-2">
+                    <div class="p-4 bg-white rounded-4 shadow-lg border border-5 border-success-subtle text-center hover-lift">
+                         <img src="{% static 'images/global-tracking.svg' %}" alt="Suivi mondial à distance" class="img-fluid" style="max-height: 350px; width: 100%;">
+                        <p class="mt-3 text-muted mb-0 small">Surveillance sans frontière</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+{% endblock %}

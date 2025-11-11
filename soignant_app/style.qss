@@ -1,0 +1,28 @@
+/* desktop_app/style.qss */
+
+/* Test général pour voir si le fichier est lu */
+QWidget {
+    background-color: #FFFFFF;
+    color: #333333;
+    font-family: "Segoe UI", sans-serif;
+}
+
+/* Cible l'en-tête (Vert Principal) */
+QFrame#Header {
+    background-color: #4CAF50; /* Vert principal */
+    border: none;
+}
+
+/* Cible le bouton de Déconnexion (Rouge) */
+QPushButton#DangerButton {
+    background-color: #D32F2F; /* Rouge */
+    color: #FFFFFF;
+    border-radius: 5px;
+}
+
+/* Style simple pour les panneaux */
+QFrame#LeftPanel, QFrame#RightPanel {
+    border: 1px solid #E0E0E0;
+    border-radius: 5px;
+    background-color: #F7F7F7; /* Gris très clair */
+}

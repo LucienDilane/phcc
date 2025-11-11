@@ -1,0 +1,85 @@
+{% extends "base.html" %} 
+{% load static %}
+
+{% block content %}
+
+    <section class="hero-gradient d-flex align-items-center py-5 mb-5 shadow-sm">
+        <div class="container py-5">
+            <div class="row align-items-center">
+                
+                <div class="col-lg-7">
+                    <h1 class="display-4 fw-bold text-phc-dark-green mb-4">
+                        Votre Santé, Notre Engagement.
+                    </h1>
+                    <p class="lead text-secondary mb-4">
+                        Bienvenue au <strong class="text-dark">Peoples Health Centre</strong>, votre partenaire pour des soins de santé intégrés. Nous combinons l'expertise humaine et les outils numériques pour garantir un suivi transparent et efficace de votre bien-être.
+                    </p>
+                    <p class="lead mb-5 fw-normal">
+                        Accédez en toute sécurité à vos plans de soins personnalisés, vos prescriptions et votre historique médical complet.
+                    </p>
+                    
+                    <a href="{% url 'patient_login' %}" class="btn btn-primary btn-lg px-5 py-3 me-3 fw-bold cta-pulse hover-lift">
+                        Espace Patient Sécurisé
+                    </a>
+                    
+                    <a href="{% url 'about' %}" class="btn btn-outline-success btn-lg px-4 py-3 hover-lift">
+                        Notre Mission
+                    </a>
+                </div>
+                
+                <div class="col-lg-5 d-none d-lg-block text-center">
+                    <img src="{% static 'public_site/img/hero_health.jpg' %}" 
+                         alt="Illustration de la santé et du bien-être numérique" 
+                         class="img-fluid rounded shadow-lg hover-lift">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold text-phc-dark-green">Des Soins Axés sur la Confiance et l'Accessibilité</h2>
+            <div class="row text-center">
+                
+                <div class="col-md-4 mb-4">
+                    <div class="card p-4 hover-lift h-100 shadow-sm border-0">
+                        <h3 class="fs-4 fw-bold text-phc-dark-green">📄 Transparence du Dossier</h3>
+                        <p class="text-secondary">Accédez à l'intégralité de votre historique, y compris les notes de consultation et les résultats de laboratoire, en temps réel.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="card p-4 hover-lift h-100 shadow-sm border-0">
+                        <h3 class="fs-4 fw-bold text-phc-dark-green">📅 Gestion Simplifiée</h3>
+                        <p class="text-secondary">Visualisez vos futurs rendez-vous et vos plans de traitement directement en ligne, depuis tous vos appareils.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4 mb-4">
+                    <div class="card p-4 hover-lift h-100 shadow-sm border-0">
+                        <h3 class="fs-4 fw-bold text-phc-dark-green">🤝 Support Dédié</h3>
+                        <p class="text-secondary">Notre équipe est là pour vous accompagner. Des professionnels disponibles pour répondre à vos questions et vous guider.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 mt-5">
+        <div class="container text-center">
+            
+            <h2 class="display-6 fw-bold mb-3 text-success">Une question ? Nous sommes là pour vous.</h2>
+            
+            <p class="lead mb-4 fw-light text-secondary">
+                Que vous soyez un nouveau patient ou que vous ayez besoin de planifier un suivi, notre équipe est prête à vous assister.
+            </p>
+            
+           <a href="{% url 'contact' %}" 
+               class="btn btn-lg px-5 py-3 fw-bold hover-lift"
+               style="background-color: #73fd73"
+            >
+                Contacter le Centre
+            </a>
+        </div>
+    </section>
+{% endblock content %}
